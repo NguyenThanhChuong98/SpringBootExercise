@@ -1,7 +1,7 @@
 package com.example.application1.controller;
 
+import com.example.application1.entity.Customers;
 import com.example.application1.repository.CustomerRepository;
-import com.example.application1.model.Customers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +16,7 @@ import java.util.Optional;
 public class CustomerController {
     @Autowired
     CustomerRepository customerRepository;
+
     @GetMapping("/customers")
     public ResponseEntity<List<Customers>> getAllCustomers(@RequestParam(required = false) String name) {
         try {

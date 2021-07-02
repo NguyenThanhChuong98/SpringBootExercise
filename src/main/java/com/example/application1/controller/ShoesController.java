@@ -1,6 +1,6 @@
 package com.example.application1.controller;
 
-import com.example.application1.model.Shoes;
+import com.example.application1.entity.Shoes;
 import com.example.application1.repository.ShoeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -87,7 +87,7 @@ public class ShoesController {
 
             return new ResponseEntity<>(shoesRepository.save(_shoes), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
     }

@@ -1,8 +1,7 @@
 package com.example.application1.repository;
 
 
-import com.example.application1.model.Customers;
-import com.example.application1.model.Shoes;
+import com.example.application1.entity.Shoes;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
