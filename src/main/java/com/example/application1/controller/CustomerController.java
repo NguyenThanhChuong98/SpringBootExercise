@@ -17,6 +17,22 @@ public class CustomerController {
     @Autowired
     CustomerRepository customerRepository;
 
+    @GetMapping("/login")
+    public ResponseEntity<List<Customers>> loginCustomer(@RequestBody Customers customer){
+        List<Customers> customers = customerRepository.findAll();
+        for (Customers other : customers){
+            if (other.equals(customer)) {
+                customerRepository.save(customer);
+                return new ResponseEntity<>(customers,HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
+        return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
     @GetMapping("/customers")
     public ResponseEntity<List<Customers>> getAllCustomers(@RequestParam(required = false) String name) {
         try {
@@ -55,7 +71,7 @@ public class CustomerController {
         }
     }
 
-    @DeleteMapping("/delete-customers")
+    @DeleteMapping("/delete-customers-by-id")
     public ResponseEntity<Customers> deleteCustomer(@RequestParam Integer id) {
         try {
             Customers customer = customerRepository.findCustomerById(id);
@@ -66,7 +82,7 @@ public class CustomerController {
         }
     }
 
-    @PutMapping("/update-customer")
+    @PutMapping("/update-customer-by-id")
     public ResponseEntity<Customers> updateCustomer(@RequestParam Integer id, @RequestBody Customers customer) {
         Optional<Customers> customerData = customerRepository.findById(id);
 

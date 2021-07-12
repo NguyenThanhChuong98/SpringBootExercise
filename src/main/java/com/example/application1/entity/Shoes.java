@@ -2,6 +2,7 @@ package com.example.application1.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "shoes")
@@ -46,6 +47,9 @@ public class Shoes {
     @Column(name = "shoe_updateDate")
     private Date updateDate;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shoe_id")
+    List<Cart> shoes_cart;
 
     public Shoes() {
 

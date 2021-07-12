@@ -2,6 +2,7 @@ package com.example.application1.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Orders")
@@ -27,6 +28,14 @@ public class Orders {
 
     @Column(name = "customer_id", insertable = false, updatable = false)
     private Integer customerId;
+
+    @JoinColumn(name  = "customer_id",insertable = true,updatable = true)
+    @ManyToOne(fetch = FetchType.EAGER)
+    Customers customers;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    List<Cart> order_cart;
 
     public Orders() {
 
@@ -65,13 +74,14 @@ public class Orders {
         this.shippedDate = shippedDate;
     }
 
-    public String getComments(String comments) {
+    public String getComments() {
         return comments;
     }
 
     public void setComments(String comments) {
         this.comments = comments;
     }
+
 }
 
 
