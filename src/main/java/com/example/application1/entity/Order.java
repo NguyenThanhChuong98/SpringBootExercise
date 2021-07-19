@@ -1,15 +1,21 @@
 package com.example.application1.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "Orders")
-public class Orders {
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private UUID id;
 
     @Column(name = "order_date")
     private Date orderDate;
@@ -31,17 +37,13 @@ public class Orders {
 
     @JoinColumn(name  = "customer_id",insertable = true,updatable = true)
     @ManyToOne(fetch = FetchType.EAGER)
-    Customers customers;
+    Customer customers;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    List<Cart> order_cart;
-
-    public Orders() {
+    public Order() {
 
     }
 
-    public Orders(Date orderDate, Date requireDate, Date shippedDate, boolean orderStatus, String comments, Integer customerId) {
+    public Order(Date orderDate, Date requireDate, Date shippedDate, boolean orderStatus, String comments, Integer customerId) {
         this.orderDate = orderDate;
         this.requireDate = requireDate;
         this.shippedDate = shippedDate;
@@ -50,37 +52,6 @@ public class Orders {
         this.customerId = customerId;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public Date getOrderDate() {
-        return orderDate;
-    }
-
-    public Date getRequireDate() {
-        return requireDate;
-    }
-
-    public void setRequireDate(Date requireDate) {
-        this.requireDate = requireDate;
-    }
-
-    public Date getShippedDate() {
-        return shippedDate;
-    }
-
-    public void setShippedDate(Date shippedDate) {
-        this.shippedDate = shippedDate;
-    }
-
-    public String getComments() {
-        return comments;
-    }
-
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
 
 }
 

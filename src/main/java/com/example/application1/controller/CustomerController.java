@@ -1,6 +1,6 @@
 package com.example.application1.controller;
 
-import com.example.application1.entity.Customers;
+import com.example.application1.entity.Customer;
 import com.example.application1.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,9 +18,9 @@ public class CustomerController {
     CustomerRepository customerRepository;
 
     @GetMapping("/login")
-    public ResponseEntity<List<Customers>> loginCustomer(@RequestBody Customers customer){
-        List<Customers> customers = customerRepository.findAll();
-        for (Customers other : customers){
+    public ResponseEntity<List<Customer>> loginCustomer(@RequestBody Customer customer){
+        List<Customer> customers = customerRepository.findAll();
+        for (Customer other : customers){
             if (other.equals(customer)) {
                 customerRepository.save(customer);
                 return new ResponseEntity<>(customers,HttpStatus.OK);
@@ -34,9 +34,9 @@ public class CustomerController {
 
 
     @GetMapping("/customers")
-    public ResponseEntity<List<Customers>> getAllCustomers(@RequestParam(required = false) String name) {
+    public ResponseEntity<List<Customer>> getAllCustomers(@RequestParam(required = false) String name) {
         try {
-            List<Customers> customers = new ArrayList<Customers>();
+            List<Customer> customers = new ArrayList<Customer>();
             if (name == null)
                 customerRepository.findAll().forEach(customers::add);
             else
@@ -54,15 +54,14 @@ public class CustomerController {
     }
 
     @PostMapping("/create-customer")
-    public ResponseEntity<Customers> createCustomer(@RequestBody Customers customer) {
+    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
         try {
-            Customers _customer = customerRepository.save(new Customers(customer.getAccount(),
+            Customer _customer = customerRepository.save(new Customer(customer.getAccount(),
                     customer.getPassword(),
                     customer.getName(),
                     customer.getDateOfBirth(),
                     customer.getPhone(),
                     customer.getAddress(),
-                    customer.getSex(),
                     customer.getCreatedDate(),
                     customer.getUpdatedDate()));
             return new ResponseEntity<>(_customer, HttpStatus.CREATED);
@@ -72,9 +71,9 @@ public class CustomerController {
     }
 
     @DeleteMapping("/delete-customers-by-id")
-    public ResponseEntity<Customers> deleteCustomer(@RequestParam Integer id) {
+    public ResponseEntity<Customer> deleteCustomer(@RequestParam Integer id) {
         try {
-            Customers customer = customerRepository.findCustomerById(id);
+            Customer customer = customerRepository.findCustomerById(id);
             customerRepository.delete(customer);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
@@ -83,17 +82,16 @@ public class CustomerController {
     }
 
     @PutMapping("/update-customer-by-id")
-    public ResponseEntity<Customers> updateCustomer(@RequestParam Integer id, @RequestBody Customers customer) {
-        Optional<Customers> customerData = customerRepository.findById(id);
+    public ResponseEntity<Customer> updateCustomer(@RequestParam Integer id, @RequestBody Customer customer) {
+        Optional<Customer> customerData = customerRepository.findById(id);
 
         if (customerData.isPresent()) {
-            Customers _customer = customerData.get();
+            Customer _customer = customerData.get();
             _customer.setName(customer.getName());
             _customer.setDateOfBirth(customer.getDateOfBirth());
             _customer.setPhone(customer.getPhone());
             _customer.setAddress(customer.getAddress());
-            _customer.setSex(customer.getSex());
-            _customer.setUpdateDate(customer.getUpdatedDate());
+            _customer.setUpdatedDate(customer.getUpdatedDate());
 
             return new ResponseEntity<>(customerRepository.save(_customer), HttpStatus.OK);
         } else {

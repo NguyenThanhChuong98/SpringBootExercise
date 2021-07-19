@@ -1,61 +1,67 @@
 package com.example.application1.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "shoes")
 public class Shoes {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private UUID id;
 
-    @Column(name = "shoe_name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "shoe_form")
+    @Column(name = "form")
     private String form;
 
-    @Column(name = "shoe_material")
+    @Column(name = "material")
     private String material;
 
-    @Column(name = "shoe_heels")
+    @Column(name = "heels")
     private Integer heels;
 
-    @Column(name = "shoe_weight")
+    @Column(name = "weight")
     private Integer weight;
 
-    @Column(name = "shoe_price")
+    @Column(name = "price")
     private Integer price;
 
-    @Column(name = "shoe_brand")
+    @Column(name = "brand")
     private String brand;
 
-    @Column(name = "shoe_size")
+    @Column(name = "size")
     private Integer size;
 
-    @Column(name = "shoe_desc")
+    @Column(name = "desc")
     private String desc;
 
-    @Column(name = "shoe_color")
+    @Column(name = "color")
     private String color;
 
-    @Column(name = "shoe_createDate")
+    @Column(name = "quantity")
+    private Integer quantity;
+
+    @Column(name = "createdDate")
     private Date createDate;
 
-    @Column(name = "shoe_updateDate")
+    @Column(name = "updatedDate")
     private Date updateDate;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shoe_id")
-    List<Cart> shoes_cart;
 
     public Shoes() {
 
     }
 
-    public Shoes(String name, String form, String material, Integer heels, Integer weight, Integer price, String brand, Integer size, String desc, String color, Date createDate, Date updateDate) {
+    public Shoes(String name, String form, String material, Integer heels, Integer weight, Integer price, String brand, Integer size, String desc, String color,Integer quantity, Date createDate, Date updateDate) {
         this.name = name;
         this.form = form;
         this.material = material;
@@ -66,111 +72,17 @@ public class Shoes {
         this.size = size;
         this.desc = desc;
         this.color = color;
+        this.quantity = quantity;
         this.createDate = createDate;
         this.updateDate = updateDate;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getForm() {
-        return form;
-    }
-
-    public void setForm(String form) {
-        this.form = form;
-    }
-
-    public String getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(String material) {
-        this.material = material;
-    }
-
-    public Integer getHeels() {
-        return heels;
-    }
-
-    public void setHeels(Integer heels) {
-        this.heels = heels;
-    }
-
-    public Integer getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Integer weight) {
-        this.weight = weight;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
 
     @Override
     public String toString() {
         return "Shoes [name:" + name + ", form:" + form + ", material:" + material + ", heels:" + heels + ", weight:" + weight
                 + ", price:" + price + ", brand:" + brand + ", size:" + size + ", desc:" + desc + ", color:" + color
-                + ", create date:" + createDate + ", update date:" + updateDate + "]";
+                + ", quantity: " + quantity + ", create date:" + createDate + ", update date:" + updateDate + "]";
     }
 }
 
