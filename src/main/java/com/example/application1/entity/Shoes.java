@@ -17,7 +17,7 @@ public class Shoes {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(name = "name")
+    @Column(name = "shoes_name")
     private String name;
 
     @Column(name = "form")
@@ -41,7 +41,7 @@ public class Shoes {
     @Column(name = "size")
     private Integer size;
 
-    @Column(name = "desc")
+    @Column(name = "shoes_desc")
     private String desc;
 
     @Column(name = "color")
@@ -61,6 +61,10 @@ public class Shoes {
 
     }
 
+    @ManyToMany
+    @JoinTable(name = "Shoes_Order", joinColumns = @JoinColumn(name = "shoes_id"), inverseJoinColumns = @JoinColumn(name = "order_id"))
+    private List<Order> shoesOrder;
+
     public Shoes(String name, String form, String material, Integer heels, Integer weight, Integer price, String brand, Integer size, String desc, String color,Integer quantity, Date createDate, Date updateDate) {
         this.name = name;
         this.form = form;
@@ -76,6 +80,7 @@ public class Shoes {
         this.createDate = createDate;
         this.updateDate = updateDate;
     }
+
 
 
     @Override

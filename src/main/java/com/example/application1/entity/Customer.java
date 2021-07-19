@@ -5,14 +5,13 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 
 @Entity
 @Getter
 @Setter
-@Table(name = "customers")
+@Table(name = "customer")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,13 +44,14 @@ public class Customer {
     @Column(name = "updatedDate")
     private Date updatedDate;
 
-    @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name = "customer_id")
-    List<Order> orders;
+    @ManyToOne
+    Customer_Order customerOrder;
 
     public Customer() {
 
     }
+
 
 
     public Customer(String account, String password, String name, Date dateOfBirth, Integer phone, String address, Date createdDate, Date updatedDate) {

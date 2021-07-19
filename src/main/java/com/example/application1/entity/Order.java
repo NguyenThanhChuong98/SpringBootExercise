@@ -1,5 +1,6 @@
 package com.example.application1.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +12,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@Table(name = "Orders")
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,16 +33,18 @@ public class Order {
     @Column(name = "comments")
     private String comments;
 
-    @Column(name = "customer_id", insertable = false, updatable = false)
-    private Integer customerId;
+    @ManyToMany(mappedBy = "shoesOrder")
+    private List<Shoes> orderShoes;
 
-    @JoinColumn(name  = "customer_id",insertable = true,updatable = true)
-    @ManyToOne(fetch = FetchType.EAGER)
-    Customer customers;
+    @OneToMany
+    @JoinColumn(name = "order_id")
+    List<Customer_Order> orderCustomer;
 
     public Order() {
 
     }
+
+
 
     public Order(Date orderDate, Date requireDate, Date shippedDate, boolean orderStatus, String comments, Integer customerId) {
         this.orderDate = orderDate;
@@ -49,7 +52,6 @@ public class Order {
         this.shippedDate = shippedDate;
         this.orderStatus = orderStatus;
         this.comments = comments;
-        this.customerId = customerId;
     }
 
 

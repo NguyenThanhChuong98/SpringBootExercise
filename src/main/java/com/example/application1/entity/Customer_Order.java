@@ -15,6 +15,12 @@ public class Customer_Order {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Column(name = "customer_id")
+    private UUID customerId;
+
+    @Column(name = "order_id")
+    private UUID orderId;
+
     public Customer_Order() {
 
     }
@@ -28,8 +34,10 @@ public class Customer_Order {
         @ManyToOne
         private Customer customer;
     }
-    public Customer_Order(UUID id) {
+    public Customer_Order(UUID id,UUID customerId,UUID orderId) {
         this.id = id;
+        this.customerId = customerId;
+        this.orderId = orderId;
     }
 
 }
